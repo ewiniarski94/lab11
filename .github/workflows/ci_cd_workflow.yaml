@@ -28,9 +28,10 @@ jobs:
        uses: astral-sh/setup-uv@v7
 
      - name: Install dependencies
-        uv sync --group integration 
        # TODO: sync ONLY the `integration` group dependencies
-       run: uv run ruff check .
-            uv run pytest tests/ -v
+       run: 
+        uv sync --group integration 
+        uv run ruff check .
+        uv run pytest tests/ -v
 
      # TODO: add steps for 'ruff check' and 'pytest tests/'
