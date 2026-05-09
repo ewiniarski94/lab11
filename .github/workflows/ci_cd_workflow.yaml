@@ -30,6 +30,10 @@ jobs:
      - name: Install dependencies
        # TODO: sync ONLY the `integration` group dependencies
        run: 
-        uv sync --group integration && uv run ruff check . && uv run pytest tests/ -v
+        uv sync --group integration
 
-     # TODO: add steps for 'ruff check' and 'pytest tests/'
+     - name: Run lint check (Ruff)
+       run: uv run ruff check .
+
+     - name: Run unit tests (Pytest)
+       run: uv run pytest tests/ -v
