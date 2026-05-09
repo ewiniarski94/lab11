@@ -37,8 +37,7 @@ jobs:
 
      - name: Run unit tests (Pytest)
        run: uv run pytest tests/ -v
-
-   deployment:
+ deployment:
  name: deploy_to_lambda
  runs-on: ubuntu-latest
  needs: integration
