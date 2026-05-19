@@ -93,4 +93,9 @@ jobs:
         run: |
           chmod +x ./scripts/resolve_lambda_role.sh
           ./scripts/resolve_lambda_role.sh
+
+      - name: Deploy with AWS SAM
+        run: |
+          chmod +x ./scripts/sam_deploy.sh
+          ./scripts/sam_deploy.sh
         
