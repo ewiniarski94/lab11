@@ -6,8 +6,6 @@ on: workflow_dispatch
 env:
  AWS_REGION: us-east-1 # your region (e.g. us-east-1)
  ECR_REPOSITORY: sentiment-app-onnx  # must match the repository created in Exercise 1
- STACK_NAME: c210499a5341446l14861794t1w542524853729
- ROLE_NAME: LabRole
 
 jobs:
  integration:
@@ -85,17 +83,22 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
       - name: Delete stack if in rollback state
-        run: |
-          chmod +x ./scripts/recover_rollback.sh
-          ./scripts/recover_rollback.sh
+        run: bash scripts/recover_rollback.sh
+        env:
+          STACK_NAME: sentiment-app-stack
+          AWS_REGION: ${{ env.AWS_REGION }}
 
       - name: Resolve Lambda role ARN from name
-        run: |
-          chmod +x ./scripts/resolve_lambda_role.sh
-          ./scripts/resolve_lambda_role.sh
+        id: lambda_role
+        run: bash scripts/resolve_lambda_role.sh
+        env:
+          ROLE_NAME: LabRole
 
       - name: Deploy with AWS SAM
-        run: |
-          chmod +x ./scripts/sam_deploy.sh
-          ./scripts/sam_deploy.sh
-        
+        run: bash scripts/sam_deploy.sh
+        env:
+          STACK_NAME: sentiment-app-stack
+          AWS_REGION: ${{ env.AWS_REGION }}
+          IMAGE_REPOSITORY: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}
+          IMAGE_URI: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+          LAMBDA_ROLE_ARN: ${{ steps.lambda_role.outputs.role_arn }}
