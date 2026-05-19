@@ -25,4 +25,5 @@ Resources:
 
 Outputs:
   ApiUrl:
+    Description: "ApiUrl"
     Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/predict"
