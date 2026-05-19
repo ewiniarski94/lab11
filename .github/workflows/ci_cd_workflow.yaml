@@ -81,3 +81,7 @@ jobs:
           docker build -t $REPOSITORY:$IMAGE_TAG .
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+      - name: Delete stack if in rollback state
+        run: ./scripts/recover_rollback.sh
+        
