@@ -6,7 +6,7 @@ on: workflow_dispatch
 env:
  AWS_REGION: us-east-1 # your region (e.g. us-east-1)
  ECR_REPOSITORY: sentiment-app-onnx  # must match the repository created in Exercise 1
- STACK_NAME: lab11
+ STACK_NAME: c210499a5341446l14861794t1w542524853729
 
 jobs:
  integration:
