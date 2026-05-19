@@ -84,6 +84,6 @@ jobs:
 
       - name: Delete stack if in rollback state
         run: |
-          chmod +x ./spripts/recover_rollback.sh
+          chmod +x ./scripts/recover_rollback.sh
           ./scripts/recover_rollback.sh
         
