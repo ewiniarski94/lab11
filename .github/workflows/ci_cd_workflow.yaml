@@ -7,6 +7,7 @@ env:
  AWS_REGION: us-east-1 # your region (e.g. us-east-1)
  ECR_REPOSITORY: sentiment-app-onnx  # must match the repository created in Exercise 1
  STACK_NAME: c210499a5341446l14861794t1w542524853729
+ ROLE_NAME: LabRole
 
 jobs:
  integration:
@@ -87,4 +88,9 @@ jobs:
         run: |
           chmod +x ./scripts/recover_rollback.sh
           ./scripts/recover_rollback.sh
+
+      - name: Resolve Lambda role ARN from name
+        run: |
+          chmod +x ./scripts/resolve_lambda_role.sh
+          ./scripts/resolve_lambda_role.sh
         
